@@ -1,9 +1,4 @@
-
-export type Hero = {
-    id:string,
-    name:string
-    image:string
-}
+import type { Hero } from "../domain/heroStore"
 
 
 export async function fetchHeros(): Promise<Hero[]> {

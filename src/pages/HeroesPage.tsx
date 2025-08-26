@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import HeroListBtn from "../components/HeroListBtn";
-import { fetchHeros, type Hero } from "../util/apiUtil";
+import { fetchHeros} from "../util/apiUtil";
 import { useCallback, useEffect, useState } from "react";
+import type { Hero } from "../domain/heroStore";
 
 
 export default function HerosPage(){
