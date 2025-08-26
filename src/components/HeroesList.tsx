@@ -5,6 +5,7 @@ import { HeroCard, HeroesListContainer, HeroImageWrapper } from "./card";
 export default function HeroesList({currentHeroes, id}: {currentHeroes:Hero[], id?:string}) {
 
     const navigate = useNavigate();
+
     function onClick(id:string){
         navigate(`/heroes/${id}`)
     }

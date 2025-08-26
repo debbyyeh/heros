@@ -6,7 +6,6 @@ import { fetchHeros } from "../util/apiUtil";
 
 
 export default function HerosPage(){
-
     const heroesList = useHeroStore(state => state.heroesList)
     const setHeroesData = useHeroStore(state => state.setHeroesData)
 

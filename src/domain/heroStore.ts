@@ -7,18 +7,31 @@ export type Hero = {
 }
 
 export type HeroProfile = {
-    str:number,
-    int:number,
-    agi:number,
-    luk:number
-}
+    str: number;
+    int: number;
+    agi: number;
+    luk: number;
+  };
+  
+export type ProfileProps = {
+    profile: HeroProfile;
+  };
 
 export const useHeroStore = create<{
     heroesList: Hero[],
-    heroProfile: HeroProfile,
+    heroProfile: {
+        profile: HeroProfile
+    },
     setHeroesData: (heroes: Hero[]) => void
 }>((set) => ({
     heroesList: [],
-    heroProfile: {str:0, int:0, agi:0, luk:0},
+    heroProfile: {
+        profile: {
+            str: 0,
+            int: 0,
+            agi: 0,
+            luk: 0
+        }
+    },
     setHeroesData: (heroesList) => set({ heroesList })
 }));

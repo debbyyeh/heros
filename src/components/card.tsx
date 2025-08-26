@@ -68,6 +68,46 @@ export const HeroImageWrapper = styled.div`
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
+    border-radius: 8px;
   }
 
+`
+
+export const ProfileContainer = styled.div`
+    margin-top: 24px;
+    border: 2px solid #ccc;
+    padding: 16px;
+    display: flex;
+    align-items: flex-end;
+
+`
+
+export const ProfileInfo = styled.div`
+    width: 50%;
+`
+
+export const PointInfo = styled.div`
+    width: 50%;
+    font-size: 25px;
+    >button{
+        margin-top: 12px;
+        min-width: 160px;
+    }
+`
+
+export const ProfileItemContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+`
+
+export const ItemTitle = styled.div`
+    width: 60px;    
+    font-size: 22px;
+`
+
+export const ItemValue = styled.div`
+    min-width: 24px;
+    font-size: 18px;
 `
