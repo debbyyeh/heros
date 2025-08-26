@@ -2,7 +2,7 @@ import './App.css'
 import Error from './pages/Error';
 
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-import HerosPage from './pages/HerosPage';
+import HeroesPage from './pages/HeroesPage';
 import HeroProfile from './pages/HeroProfile';
 
 const router = createBrowserRouter([
@@ -12,15 +12,15 @@ const router = createBrowserRouter([
     errorElement: <Error/>,
     element: <>
       <h1>Welcom to Hero pages</h1>
-      <Link to='/heros'>See Our Heros</Link>
+      <Link to='/heroes'>See Our Heros</Link>
     </>,
   },
   {
-    path: "/heros",
-    element: <HerosPage/>,
+    path: "/heroes",
+    element: <HeroesPage/>,
   },
   {
-    path: "/heros/:id",
+    path: "/heroes/:id",
     element: <HeroProfile/>,
   }
 ]);
