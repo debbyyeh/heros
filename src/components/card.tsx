@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+interface HeroCardProps {
+    $selected?: boolean;
+    $showAll?: boolean;
+  }
+
 export const SubTitle = styled.h2`
     margin: 0;
     margin-bottom: 16px;
@@ -34,9 +39,10 @@ export const HeroesListContainer = styled.div`
   }
   
 `
-export const HeroCard = styled.div`
+export const HeroCard = styled.div<HeroCardProps>`
   cursor: pointer;
-  border: 3px solid #ccc;
+  border: 3px solid ${({ $selected }) => ($selected ? "#646cff" : "#ccc")};
+  opacity: ${({ $selected, $showAll }) => ($showAll || $selected ? 1 : 0.2)};
   border-radius: 8px;
   padding: 16px;
   transition: border-color 0.25s;
@@ -47,6 +53,10 @@ export const HeroCard = styled.div`
     img{
         transform: scale(1.1); 
     }
+  }
+
+  img{
+    ${({ $selected }) => ($selected ? "transform: scale(1.1);" : "")}
   }
 `
 

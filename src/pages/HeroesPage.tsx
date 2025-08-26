@@ -10,8 +10,6 @@ export default function HerosPage(){
     const heroesList = useHeroStore(state => state.heroesList)
     const setHeroesData = useHeroStore(state => state.setHeroesData)
 
-    // const {id} = useParams()
-
     useEffect(()=>{
         fetchHeros().then(data =>{
             setHeroesData(data)
