@@ -1,7 +1,8 @@
 import HeroesList from "../components/HeroesList";
-import { fetchHeros} from "../util/apiUtil";
-import { useEffect } from "react";
 import { useHeroStore} from "../domain/heroStore";
+import { SubTitle } from "../components/card";
+import { useEffect } from "react";
+import { fetchHeros } from "../util/apiUtil";
 
 
 export default function HerosPage(){
@@ -21,7 +22,12 @@ export default function HerosPage(){
     return(
         <>
             <h1>Heros Page</h1>
-            {heroesList.length === 0 ?<p>英雄集結中</p> : <HeroesList currentHeroes={heroesList}/>}
+            {heroesList.length === 0 ?<p>英雄集結中</p> : 
+                <>
+                    <SubTitle>Hero Lists: click to see more info!</SubTitle>
+                    <HeroesList currentHeroes={heroesList}/>
+                </>
+            }
         </>
     )
 }

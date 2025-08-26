@@ -1,5 +1,6 @@
 import type { Hero } from "../domain/heroStore";
 import { useNavigate } from "react-router-dom"
+import { HeroCard, HeroesListContainer, HeroImageWrapper } from "./card";
 
 export default function HeroesList({currentHeroes}: {currentHeroes:Hero[]}) {
 
@@ -9,13 +10,15 @@ export default function HeroesList({currentHeroes}: {currentHeroes:Hero[]}) {
     }
 
     return (
-        <ul>
+        <HeroesListContainer>
             {currentHeroes.map(hero => (
-                <li key={`hero_${hero.id}`} onClick={() => onClick(hero.id)}>
+                <HeroCard key={`hero_${hero.id}`} onClick={() => onClick(hero.id)}>
+                    <HeroImageWrapper>
+                        <img src={hero.image} alt={hero.name} />
+                    </HeroImageWrapper>
                     <h2>{hero.name}</h2>
-                    <img src={hero.image} alt={hero.name} width={100}/>
-                </li>
+                </HeroCard>
             ))}
-        </ul>
+        </HeroesListContainer>
     )
 }
