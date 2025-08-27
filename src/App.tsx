@@ -18,10 +18,12 @@ const router = createBrowserRouter([
   {
     path: "/heroes",
     element: <HeroesPage/>,
-  },
-  {
-    path: "/heroes/:id",
-    element: <HeroProfile/>,
+    children: [
+      {
+        path: ":id", // 子路由
+        element: <HeroProfile />,
+      },
+    ],
   }
 ]);
 
