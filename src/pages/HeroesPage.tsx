@@ -24,8 +24,9 @@ export default function HerosPage(){
             {heroesList.length === 0 ?<p>英雄集結中</p> : 
                 <>
                     <SubTitle>Hero Lists: click to see more info!</SubTitle>
-                    <HeroesList allHeroes={heroesList} id={id}/>
-                    <Outlet/>
+                    <HeroesList allHeroes={heroesList} id={id}>
+                        <Outlet/>
+                    </HeroesList>
                 </>
             }
         </>

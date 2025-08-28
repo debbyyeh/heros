@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { SubTitle } from "../components/card"
+import { Note } from "../components/card"
 import { useHeroStore, type HeroProfile} from "../domain/heroStore"
 import { useEffect } from "react"
 import { fetchHeroProfile } from "../util/apiUtil"
@@ -7,26 +7,29 @@ import { HeroProfileList } from "../components/HeroProfileList"
 
 export default function HeroProfile(){
     const heroesList = useHeroStore(state => state.heroesList)
-    const heroProfile = useHeroStore(state => state.heroProfile)
     const {id} = useParams<{ id: string }>()
     const currentHero = heroesList.find(hero => hero.id === id)
 
-    useEffect(()=>{
-        if(id && currentHero){
-            fetchHeroProfile(id).then(data =>{
-                useHeroStore.setState({ heroProfile: {profile:data}})
+    useEffect(() => {
+        if (id && currentHero && !currentHero.profile) {
+          fetchHeroProfile(id).then(profileData => {
+            useHeroStore.setState(state => {
+              const updatedHeroes = state.heroesList.map(hero =>
+                hero.id === id ? { ...hero, profile: profileData } : hero
+              )
+              return { heroesList: updatedHeroes }
             })
+          })
         }
-    },[id,currentHero])
+      }, [id, currentHero])
 
 
     return(
         <>
-        <h2>Personal Profile </h2>
-        {heroProfile ?
+        {currentHero!.profile ?
         <>
-            <SubTitle>現在選擇的是 {currentHero!.name}</SubTitle>
-            <HeroProfileList profile={heroProfile.profile!}/>
+            <Note>現在選擇的是 {currentHero!.name}</Note>
+            <HeroProfileList profile={currentHero!.profile}/>
         </>
         : <p>英雄資料載入中...</p>}
         </>

@@ -1,7 +1,11 @@
-import type { ProfileProps } from "../domain/heroStore"
+import type { HeroProfile } from "../domain/heroStore";
 import { ItemTitle, ItemValue, PointInfo, ProfileContainer, ProfileInfo, ProfileItemContainer} from "./card"
 
-export const HeroProfileList = ({ profile }: ProfileProps)=>{
+type HeroProfileListProps = {
+    profile: HeroProfile | null
+}
+
+export const HeroProfileList = ({profile}:HeroProfileListProps)=>{
 
     return(
         profile ?
