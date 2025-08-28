@@ -1,15 +1,16 @@
 import type { HeroProfile } from "../domain/heroStore";
-import { ItemTitle, ItemValue, PointInfo, ProfileContainer, ProfileInfo, ProfileItemContainer} from "./card"
+import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileItemContainer} from "./card"
 
-type HeroProfileListProps = {
-    profile: HeroProfile | null
-}
+type HeroProfileProps = {
+    profile: HeroProfile | null;
+};
 
-export const HeroProfileList = ({profile}:HeroProfileListProps)=>{
+export const HeroProfileList = ({profile}:HeroProfileProps)=>{
 
     return(
         profile ?
-            <ProfileContainer>
+            <ProfileContent
+            >
                 <ProfileInfo>
                     {Object.entries(profile).map(([key, value]) => (
                         <ProfileItem key={key} name={key} value={value} />
@@ -19,7 +20,7 @@ export const HeroProfileList = ({profile}:HeroProfileListProps)=>{
                     <div>剩餘點數：0</div>
                     <button>儲存</button>
                 </PointInfo>
-            </ProfileContainer>
+            </ProfileContent>
         : null)
 }
 

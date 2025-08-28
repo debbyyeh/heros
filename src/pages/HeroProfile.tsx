@@ -28,7 +28,7 @@ export default function HeroProfile(){
         <>
         {currentHero!.profile ?
         <>
-            <Note>現在選擇的是 {currentHero!.name}</Note>
+            <Note>英雄能力值</Note>
             <HeroProfileList profile={currentHero!.profile}/>
         </>
         : <p>英雄資料載入中...</p>}
