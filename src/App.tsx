@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <HeroesPage/>,
     children: [
       {
-        path: ":id", // 子路由
+        path: ":id",
         element: <HeroProfile />,
       },
     ],
@@ -30,9 +30,7 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <>
       <RouterProvider router={router}/>
-    </>
   )
 }
 
