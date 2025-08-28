@@ -111,7 +111,13 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
 export const ProfileContent = styled.div`
     display: flex;
     align-items: flex-end;
-    width: fit-content;
+    justify-content: space-between;
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 `
 
 export const PopupMsg = styled.div`
@@ -120,22 +126,39 @@ export const PopupMsg = styled.div`
 
 export const ProfileInfo = styled.div`
     width: 50%;
+    @media (max-width: 600px) {
+        width: 100%;
+    }
+    
 `
 
 export const PointInfo = styled.div`
     width: 50%;
-    font-size: 25px;
+    font-size: 18px;
+    margin-top: 12px;
     >button{
         margin-top: 12px;
-        min-width: 160px;
+        min-width: 80px;
+    }
+    @media (max-width: 600px) {
+        width: 100%;
     }
 `
 
-export const ProfileItemContainer = styled.div`
-    display: flex;
-    align-items: center;
+
+export const ProfileInfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &:not(:last-child){
     margin-bottom: 12px;
-    gap: 8px;
+  }
+  
+  >button{
+        padding: 8px;
+        font-size: 20px;
+        min-width: 30px;
+    }
 `
 
 export const ItemTitle = styled.div`

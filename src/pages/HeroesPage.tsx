@@ -1,5 +1,5 @@
 import HeroesList from "../components/HeroesList";
-import { useHeroStore} from "../domain/heroStore";
+import { useHeroStore, type HeroLists} from "../domain/heroStore";
 import { SubTitle } from "../components/card";
 import { useEffect } from "react";
 import { fetchHeros } from "../util/apiUtil";
@@ -13,7 +13,12 @@ export default function HerosPage(){
 
     useEffect(()=>{
         fetchHeros().then(data =>{
-            setHeroesData(data)
+            const heroesObj: HeroLists = data.reduce((acc, hero) => {
+                acc[hero.id] = { ...hero, profile: null };
+                return acc;
+              }, {} as HeroLists);
+            
+              setHeroesData(heroesObj);
         })
     },[setHeroesData])
 
@@ -21,10 +26,10 @@ export default function HerosPage(){
     return(
         <>
             <h1>Heros Page</h1>
-            {heroesList.length === 0 ?<p>英雄集結中</p> : 
+            {Object.keys(heroesList).length === 0 ?<p>英雄集結中</p> : 
                 <>
                     <SubTitle>Hero Lists: click to see more info!</SubTitle>
-                    <HeroesList allHeroes={heroesList} id={id}>
+                    <HeroesList allHeroes={Object.values(heroesList)} id={id}>
                         <Outlet/>
                     </HeroesList>
                 </>
