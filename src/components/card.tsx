@@ -12,12 +12,18 @@ export const SubTitle = styled.h2`
     font-weight: bold;
     color: #fff;
 `
+export const Note = styled.p`
+    font-size: 20px;
+    color: #fff;
+    margin: 20px auto;
+`
 
 export const HeroesListContainer = styled.div`
   display: grid;
   gap:16px;
   width: 100%;
   margin: 0 auto;
+  position:relative;
   
   @media (max-width: 767px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -74,7 +80,6 @@ export const HeroImageWrapper = styled.div`
 `
 
 export const ProfileContainer = styled.div`
-    margin-top: 24px;
     border: 2px solid #ccc;
     padding: 16px;
     display: flex;
