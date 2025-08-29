@@ -1,5 +1,5 @@
-import { useHeroStore} from "../domain/heroStore";
-import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem} from "./card"
+import { useHeroStore} from "../../domain/heroStore";
+import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem} from "./style"
 
 
 

@@ -1,9 +1,9 @@
-import HeroesList from "../components/HeroesList";
 import { useHeroStore, type HeroLists} from "../domain/heroStore";
-import { SubTitle } from "../components/card";
 import { useEffect } from "react";
 import { fetchHeros } from "../util/apiUtil";
 import { Outlet, useParams } from "react-router-dom";
+import { SubTitle } from "../components/heroesList/style";
+import HeroesList from "../components/heroesList";
 
 
 export default function HerosPage(){

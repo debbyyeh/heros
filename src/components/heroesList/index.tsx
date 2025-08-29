@@ -1,6 +1,7 @@
-import type { Hero } from "../domain/heroStore";
 import { useNavigate } from "react-router-dom"
-import { HeroCard, HeroesListContainer, HeroImageWrapper, ProfileContainer } from "./card";
+import type { Hero } from "../../domain/heroStore";
+import { HeroCard, HeroesListContainer, HeroImageWrapper } from "./style";
+import { ProfileContainer } from "../heroProfileList/style";
 
 export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[], id?:string, children: React.ReactNode}) {
 
