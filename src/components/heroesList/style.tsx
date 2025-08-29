@@ -17,9 +17,10 @@ export const HeroesListContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   position:relative;
+
   
   @media (max-width: 767px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     max-width: calc(100vw - 40px);
   }
 

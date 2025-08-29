@@ -19,16 +19,22 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
             return;
           }
         }
-        setTempData(id, heroesList[id].profile!);
+        if (id && heroesList[id]?.profile){
+            setTempData(id, heroesList[id].profile!);
+        }
+        
         navigate(`/heroes/${linkHeroId}`);
+        // TODO: 假設按下儲存後，點擊其他英雄會跳出警告視窗（尚未變身成功，請稍等）
     };
 
     return (
         <HeroesListContainer>
-            {allHeroes.map(hero => {
+            {allHeroes.map((hero, index) => {
                 const isSelected = id === hero.id;
                 return(
-                    <div key={`card_${hero.id}`}>
+                    <div key={`card_${hero.id}`} style={{position:'relative'
+
+                    }}>
                         <HeroCard key={`hero_${hero.id}`} 
                             onClick={() => {handleLeaveHero(hero.id)}}
                             $showAll={id === undefined}
@@ -39,7 +45,8 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
                             </HeroImageWrapper>
                             <h2>{hero.name}</h2>
                         </HeroCard>
-                        <ProfileContainer $selected={id === hero.id}>
+                        {/* extendToRight profile 方框延伸的方向 */}
+                        <ProfileContainer $selected={id === hero.id} $extendToRight={index === 0 || index === 1}>
                           { isSelected && children}
                         </ProfileContainer>
                     </div>
