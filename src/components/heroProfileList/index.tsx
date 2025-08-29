@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { useHeroStore, type HeroProfile} from "../../domain/heroStore";
+import { useHeroStore} from "../../domain/heroStore";
 import { editHeroProfile } from "../../util/apiUtil";
 import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn} from "./style"
 
@@ -13,16 +13,8 @@ export const HeroProfileList = ({id}:{id:string})=>{
     const [warning, setWarning] = useState<string>('');
 
     //當tempData跟 hero.profile 值不一樣的時候，顯示tempData的值，代表正在被修改
-    const profile = useMemo(()=>{
-        const temp = tempData[id];
-        if(temp && Object.entries(tempData[id]).some(
-            ([key, value]) => value !== hero.profile![key as keyof HeroProfile]
-        )){
-            return temp;
-        }
+    const profile = useMemo(() => tempData[id] || hero.profile, [tempData, id, hero.profile]);
 
-        return hero.profile;
-    },[tempData, id, hero.profile]);
 
     function calcRemainingPoints(current: number, delta: number) {
         return current - delta;
@@ -44,6 +36,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
             ...profile,
             [key]: newValue
         })
+
         validateRemainingPoints(newRemainingPoints);
     },[id, profile, remainingPoints, setTempData]);
 

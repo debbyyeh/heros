@@ -28,7 +28,7 @@ export default function HerosPage(){
             {Object.keys(heroesList).length === 0 ?<p>英雄集結中</p> : 
                 <>
                     {!id && <Note>Click card to see more info!</Note>}
-                    <HeroesList allHeroes={Object.values(heroesList)} id={id}>
+                    <HeroesList allHeroes={Object.values(heroesList)} id={id!}>
                         <Outlet/>
                     </HeroesList>
                 </>
