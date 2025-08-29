@@ -7,8 +7,7 @@ import HeroesList from "../components/heroesList";
 
 
 export default function HerosPage(){
-    const heroesList = useHeroStore(state => state.heroesList)
-    const setHeroesData = useHeroStore(state => state.setHeroesData)
+    const {heroesList, setHeroesData} = useHeroStore();
     const { id } = useParams<{ id: string }>()
 
     useEffect(()=>{

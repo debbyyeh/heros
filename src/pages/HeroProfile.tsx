@@ -6,9 +6,7 @@ import { HeroProfileList } from "../components/heroProfileList"
 import { Note } from "../components/heroesList/style"
 
 export default function HeroProfile(){
-    const heroesList = useHeroStore(state => state.heroesList)
-    const updateHeroProfile = useHeroStore(state => state.updateHeroProfile)
-    const setTempData = useHeroStore(state => state.setTempData)
+    const {heroesList,updateHeroProfile,setTempData} = useHeroStore();
     const {id} = useParams<{ id: string }>()
     const currentHero = id ? heroesList[id] : null
 
