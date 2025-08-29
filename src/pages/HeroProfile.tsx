@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { Note } from "../components/card"
-import { useHeroStore, type HeroLists, type HeroProfile} from "../domain/heroStore"
+import { useHeroStore, type HeroProfile} from "../domain/heroStore"
 import { useEffect } from "react"
 import { fetchHeroProfile } from "../util/apiUtil"
 import { HeroProfileList } from "../components/HeroProfileList"
@@ -24,7 +24,7 @@ export default function HeroProfile(){
         <>
         {currentHero!.profile ?
         <>
-            <Note>英雄能力值</Note>
+            <Note>{currentHero?.name} 能力值表</Note>
             <HeroProfileList id={id!}/>
         </>
         : <p>英雄資料載入中...</p>}

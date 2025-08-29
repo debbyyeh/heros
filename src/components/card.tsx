@@ -69,9 +69,22 @@ export const HeroCard = styled.div<HeroCardProps>`
     ${({ $selected }) => ($selected ? "transform: scale(1.1);" : "")}
   }
 
+  /* 手機版上讓圖片縮小，這樣就不用另外將畫面往下滑就可以調整數據 */
+
+  @media (max-width: 440px) {
+    width: ${({ $selected }) => ($selected ? "80px" : "")};
+    height: ${({ $selected }) => ($selected ? "80px" : "auto")};
+    border-radius: ${({ $selected }) => ($selected ? "50%" : "")};
+    margin: 0 auto;
+
+    h2 {
+      display: ${({ $selected }) => ($selected ? "none" : "block")};
+    }
+  }
+
 `
 
-export const HeroImageWrapper = styled.div`
+export const HeroImageWrapper = styled.div<HeroCardProps>`
   width: 100%;
   
   img {
@@ -80,6 +93,13 @@ export const HeroImageWrapper = styled.div`
     object-fit: cover;
     transition: transform 0.3s;
     border-radius: 8px;
+  }
+
+  @media (max-width: 440px) {
+    img{
+      border-radius: ${({ $selected }) => ($selected ? "50%" : "")};
+    }
+   
   }
 
 `

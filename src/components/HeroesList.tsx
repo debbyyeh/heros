@@ -17,7 +17,7 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
                             $showAll={id === undefined}
                             $selected={id === hero.id}
                         >
-                            <HeroImageWrapper>
+                            <HeroImageWrapper $selected={id === hero.id}>
                                 <img src={hero.image} alt={hero.name} />
                             </HeroImageWrapper>
                             <h2>{hero.name}</h2>
