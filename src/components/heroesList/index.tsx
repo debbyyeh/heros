@@ -6,6 +6,7 @@ import { ProfileContainer } from "../heroProfileList/style";
 export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[], id?:string, children: React.ReactNode}) {
 
     const navigate = useNavigate();
+    //TODO:切換頁面時假設剩餘能力點數不為0，會跳出警告視窗，並且不儲存修改內容
 
     return (
         <HeroesListContainer>

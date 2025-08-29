@@ -5,15 +5,6 @@ interface HeroCardProps {
     $showAll?: boolean;
 }
 
-
-
-export const SubTitle = styled.h2`
-    margin: 0;
-    margin-bottom: 16px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-`
 export const Note = styled.p`
     font-size: 20px;
     color: #fff;

@@ -45,7 +45,7 @@ export const PopupMsg = styled.div`
 `
 
 export const ProfileInfo = styled.div`
-    width: 50%;
+    width: 55%;
     @media (max-width: 600px) {
         width: 100%;
     }
@@ -53,14 +53,12 @@ export const ProfileInfo = styled.div`
 `
 
 export const PointInfo = styled.div`
-    width: 50%;
+    width: 40%;
     margin-top: 12px;
-    >button{
-        margin-top: 12px;
-        min-width: 80px;
-    }
+
     @media (max-width: 600px) {
         width: 100%;
+        margin-top: 24px;
     }
 `
 
@@ -80,9 +78,26 @@ export const ProfileInfoItem = styled.div`
     }
 `
 
+export const SaveBtn = styled.button`
+    background-color: #646cff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 12px;
+    &:hover {
+        background-color: #535bf2;
+    }
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+`
+
 export const ItemTitle = styled.div`
-    width: 60px;    
-    font-size: 22px;
+    font-size: 20px;
 `
 
 export const ItemValue = styled.div`

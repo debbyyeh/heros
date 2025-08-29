@@ -8,16 +8,19 @@ import { Note } from "../components/heroesList/style"
 export default function HeroProfile(){
     const heroesList = useHeroStore(state => state.heroesList)
     const updateHeroProfile = useHeroStore(state => state.updateHeroProfile)
+    const setTempData = useHeroStore(state => state.setTempData)
     const {id} = useParams<{ id: string }>()
     const currentHero = id ? heroesList[id] : null
 
     useEffect(() => {
-        if (id && currentHero && !currentHero.profile) {
-          fetchHeroProfile(id).then(profileData => {
-            updateHeroProfile(id, profileData);
-          });
-        }
-      }, [id, currentHero])
+      if(currentHero && !currentHero.profile || currentHero?.profileNeedsRefresh){
+        fetchHeroProfile(currentHero.id).then(profileData => {
+          updateHeroProfile(currentHero.id,profileData, false);
+          setTempData(currentHero.id, profileData);
+        });
+      }
+
+      }, [currentHero, currentHero?.profileNeedsRefresh, setTempData, updateHeroProfile]);
 
 
     return(
