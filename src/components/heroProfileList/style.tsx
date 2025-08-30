@@ -16,7 +16,6 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
     transition: transform 0.3s ease;
     max-height: ${({ $selected }) => ($selected ? "400px" : "0")};
     position: absolute;
-    width: 150%;
     right: 0;
     ${({ $extendToRight }) =>
         $extendToRight &&
@@ -50,6 +49,7 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
         position: static;
         width: auto;
         margin-top: 12px;
+        max-height: ${({ $selected }) => ($selected ? "450px" : "0")};
 
         &::before{
             left: 10px;
@@ -139,7 +139,7 @@ export const SaveBtn = styled.button<{$waiting:boolean}>`
         background-color: #535bf2;
     }
     &:disabled {
-        background-color: #ccc;
+        opacity: 0.2;
         cursor: not-allowed;
     }
 `

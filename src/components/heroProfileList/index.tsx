@@ -62,7 +62,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
 
     const sendUpdatedProfile = async() =>{
         
-        validateRemainingPoints(remainingPoints!);
+        if(!validateRemainingPoints(remainingPoints!)) return;
 
         if(Object.values(profile!).some(value => value <= 0)){
             setWarning('能力值不能小於0')
@@ -82,10 +82,11 @@ export const HeroProfileList = ({id}:{id:string})=>{
             updateHeroProfile(id, profile!, true);
             setWarning("英雄變身成功！");
           } catch (err) {
+            console.log('errrrrrrrrrrrr')
             setSavingData(false);
             updateHeroProfile(id, profile!, false);
             setWarning("儲存失敗，請重試");
-          }
+        }
     }
 
     return(
@@ -108,7 +109,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
                 <PointInfo>
                     <div>能力總和：{hero.points}</div>
                     <div>剩餘點數：{remainingPoints}</div>
-                    <SaveBtn onClick={sendUpdatedProfile} disabled={savingData} $waiting={savingData!}
+                    <SaveBtn onClick={sendUpdatedProfile} disabled={savingData || remainingPoints !== 0} $waiting={savingData!}
                     >儲存</SaveBtn>
                 </PointInfo>
             </ProfileContent>

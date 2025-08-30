@@ -39,6 +39,6 @@ export async function editHeroProfile(id:string, profile: HeroProfileRes) {
         }
 
       } catch (err) {
-        alert('更新失敗，請稍後再試')
+        throw err
       }
-    }
+}
