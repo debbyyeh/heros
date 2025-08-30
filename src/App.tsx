@@ -1,19 +1,17 @@
 import './App.css'
 import Error from './pages/Error';
 
-import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HeroesPage from './pages/HeroesPage';
 import HeroProfile from './pages/HeroProfile';
+import { Navigate } from "react-router-dom";
 
 const router = createBrowserRouter([
 
   {
     path: "/",
     errorElement: <Error/>,
-    element: <>
-      <h1>Welcom to Hero pages</h1>
-      <Link to='/heroes'>See Our Heros</Link>
-    </>,
+    element: <Navigate to="/heroes" replace />,
   },
   {
     path: "/heroes",
