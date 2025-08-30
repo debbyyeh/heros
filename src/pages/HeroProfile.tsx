@@ -11,14 +11,14 @@ export default function HeroProfile(){
     const currentHero = id ? heroesList[id] : null
 
     useEffect(() => {
-      if(currentHero && !currentHero.profile || currentHero?.profileNeedsRefresh){
+      if(currentHero && !currentHero.profile ){
         fetchHeroProfile(currentHero.id).then(profileData => {
           updateHeroProfile(currentHero.id,profileData, false);
           setTempData(currentHero.id, profileData);
         });
       }
 
-      }, [currentHero, currentHero?.profileNeedsRefresh, setTempData, updateHeroProfile]);
+      }, [currentHero, setTempData, updateHeroProfile]);
 
 
     return(

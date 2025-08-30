@@ -11,7 +11,7 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
     const heroesList = useHeroStore(state => state.heroesList);
 
     
-    //TODO:切換頁面時假設剩餘能力點數不為0或者tempData跟原資料不同，會跳出警告視窗，並且不儲存修改內容
+    //ASK:切換頁面時假設剩餘能力點數不為0或者tempData跟原資料不同，會跳出警告視窗，並且不儲存修改內容
     const handleLeaveHero = (linkHeroId:string) => {
         if (isEditing) {
           const confirmLeave = window.confirm("你有未儲存的修改，確定要離開嗎？");
@@ -22,9 +22,7 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
         if (id && heroesList[id]?.profile){
             setTempData(id, heroesList[id].profile!);
         }
-        
         navigate(`/heroes/${linkHeroId}`);
-        // TODO: 假設按下儲存後，點擊其他英雄會跳出警告視窗（尚未變身成功，請稍等）
     };
 
     return (

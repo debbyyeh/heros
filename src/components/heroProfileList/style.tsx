@@ -94,7 +94,7 @@ export const ProfileInfoItem = styled.div`
   }
   
   >button{
-        padding: 8px;
+        padding: 8px 12px;
         font-size: 20px;
         min-width: 30px;
     }
@@ -104,13 +104,13 @@ export const ProfileInfoItem = styled.div`
     }
 `
 
-export const SaveBtn = styled.button`
-    background-color: #646cff;
+export const SaveBtn = styled.button<{$waiting:boolean}>`
+    background-color: ${({ $waiting }) => ($waiting ? "#ccc" : "#4caf50")};
+    cursor: ${({ $waiting }) => ($waiting ? "not-allowed" : "pointer")};
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
     margin-top: 12px;
     &:hover {
@@ -124,6 +124,7 @@ export const SaveBtn = styled.button`
 
 export const ItemTitle = styled.div`
     font-size: 20px;
+    min-width: 40px;
 `
 
 export const ItemValue = styled.div`

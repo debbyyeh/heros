@@ -2,10 +2,13 @@ import { useCallback, useMemo, useState } from "react";
 import { useHeroStore} from "../../domain/heroStore";
 import { editHeroProfile } from "../../util/apiUtil";
 import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn} from "./style"
+import { Note } from "../heroesList/style";
 
 
 export const HeroProfileList = ({id}:{id:string})=>{
     const { heroesList, updateHeroProfile, tempData, setTempData } = useHeroStore();
+    const isEditing = useHeroStore(state => state.isEditingData(state, id));
+    const [savingData, setSavingData] = useState<boolean>(false);
 
     const hero = heroesList[id!];
 
@@ -13,14 +16,16 @@ export const HeroProfileList = ({id}:{id:string})=>{
     const [warning, setWarning] = useState<string>('');
 
     //當tempData跟 hero.profile 值不一樣的時候，顯示tempData的值，代表正在被修改
-    const profile = useMemo(() => tempData[id] || hero.profile, [tempData, id, hero.profile]);
+    const profile = useMemo(() => {
+        return isEditing ? tempData[id] : hero.profile;
+    }, [isEditing, tempData, id, hero.profile]);
 
 
     function calcRemainingPoints(current: number, delta: number) {
         return current - delta;
     }
       
-      function calcNewStatValue(current: number, delta: number) {
+    function calcNewStatValue(current: number, delta: number) {
         return Math.max(0, current + delta);
     }
     
@@ -48,12 +53,16 @@ export const HeroProfileList = ({id}:{id:string})=>{
             return false;
         }
         setWarning('英雄變身中...')
+        setSavingData(true);
 
         try {
             await editHeroProfile(id, profile!);
+            setSavingData(false);
             updateHeroProfile(id, profile!, true);
             setWarning("英雄變身成功！");
           } catch (err) {
+            setSavingData(false);
+            updateHeroProfile(id, profile!, false);
             setWarning("儲存失敗，請重試");
           }
     }
@@ -86,10 +95,11 @@ export const HeroProfileList = ({id}:{id:string})=>{
                 <PointInfo>
                     <div>能力總和：{hero.points}</div>
                     <div>剩餘點數：{remainingPoints}</div>
-                    <SaveBtn onClick={sendUpdatedProfile}>儲存</SaveBtn>
+                    <SaveBtn onClick={sendUpdatedProfile} disabled={savingData} $waiting={savingData!}
+                    >儲存</SaveBtn>
                 </PointInfo>
             </ProfileContent>
-            <p style={{marginTop:'15px'}}>{warning}</p>
+            <Note>{warning}</Note>
             </>
         : null
         )

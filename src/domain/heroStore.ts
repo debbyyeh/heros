@@ -3,7 +3,7 @@ import { create } from "zustand";
 type HeroStoreState = {
     heroesList: HeroLists;
     setHeroesData: (heroes: HeroLists) => void;
-    updateHeroProfile: (id: string, profile: HeroProfile, isEdited:boolean) => void;
+    updateHeroProfile: (id: string, profile: HeroProfile, refereshing: boolean) => void;
     tempData: Record<string, HeroProfile>;
     setTempData: (id: string, profile: HeroProfile) => void;
     isEditingData: (state: HeroStoreState, id:string)=> boolean;
@@ -30,7 +30,7 @@ export type HeroProfile = {
 export const useHeroStore = create<{
     heroesList: HeroLists,
     setHeroesData: (heroes: HeroLists) => void,
-    updateHeroProfile: (id: string, profile: HeroProfile, isEdited:boolean) => void,
+    updateHeroProfile: (id: string, profile: HeroProfile, refereshing: boolean) => void,
     tempData: Record<string, HeroProfile>,
     setTempData: (id: string, profile: HeroProfile) => void,
     isEditingData: (state:HeroStoreState, id:string)=> boolean,
@@ -42,7 +42,7 @@ export const useHeroStore = create<{
             heroesList,
         }
     ),
-    updateHeroProfile: (id, profile, isEdited) => set((state) => {
+    updateHeroProfile: (id, profile, refereshing = false) => set((state) => {
         const totalPoints = Object.values(profile).reduce((sum, val) => sum + val, 0);
         return{
             heroesList:{
@@ -51,7 +51,7 @@ export const useHeroStore = create<{
                     ...state.heroesList[id],
                     profile,
                     points: totalPoints,
-                    profileNeedsRefresh: isEdited
+                    profileNeedsRefresh: refereshing
                 },
             }
     }}),
