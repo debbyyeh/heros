@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { useHeroStore, type Hero } from "../../domain/heroStore";
 import { HeroCard, HeroesListContainer, HeroImageWrapper } from "./style";
 import { ProfileContainer } from "../heroProfileList/style";
+import { useState } from "react";
+import Popup from "../popup";
 
 export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[], id:string, children: React.ReactNode}) {
 
@@ -10,14 +12,34 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
     const setTempData = useHeroStore(state => state.setTempData);
     const heroesList = useHeroStore(state => state.heroesList);
 
-    
-    //ASK:切換頁面時假設剩餘能力點數不為0或者tempData跟原資料不同，會跳出警告視窗，並且不儲存修改內容
+    const [showConfirm, setShowConfirm] = useState(false);
+
+    // const handleLeaveHero = (linkHeroId: string) => {
+    //     if (linkHeroId === id) return;
+
+    //     if (isEditing ) {
+    //         setShowConfirm(true);
+    //         return;
+    //     }
+    //     if (id && heroesList[id]?.profile){
+    //         setTempData(id, heroesList[id].profile!);
+    //     }
+    //     navigate(`/heroes/${linkHeroId}`);
+    // };
+
+    const handleConfirm = (linkHeroId: string) => {
+        setShowConfirm(false);
+        navigate(`/heroes/${linkHeroId}`);
+    };
+
+    const handleCancel = () => {
+        setShowConfirm(false);
+    };
+
     const handleLeaveHero = (linkHeroId:string) => {
         if (isEditing) {
-          const confirmLeave = window.confirm("你有未儲存的修改，確定要離開嗎？");
-          if (!confirmLeave) {
+            setShowConfirm(true);
             return;
-          }
         }
         if (id && heroesList[id]?.profile){
             setTempData(id, heroesList[id].profile!);
@@ -25,7 +47,9 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
         navigate(`/heroes/${linkHeroId}`);
     };
 
+
     return (
+        <>
         <HeroesListContainer>
             {allHeroes.map((hero, index) => {
                 const isSelected = id === hero.id;
@@ -47,9 +71,20 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
                         <ProfileContainer $selected={id === hero.id} $extendToRight={index === 0 || index === 1}>
                           { isSelected && children}
                         </ProfileContainer>
+                        {showConfirm ? (
+                            <Popup
+                                isOpen={showConfirm}
+                                message="你有未儲存的修改，確定要離開嗎？"
+                                onConfirm={()=>handleConfirm(hero.id)}
+                                    onCancel={handleCancel}
+                                />
+                            ): null}
                     </div>
                 )
             })}
+            
         </HeroesListContainer>
+        
+        </>
     )
 }
