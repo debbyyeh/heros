@@ -24,11 +24,7 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
             right: auto;
         `}
 
-    @media (max-width: 768px) {
-        position: static;
-        width: auto;
-        margin-top: 12px;
-    }
+    
 
     &::before {
         content:'';
@@ -47,6 +43,17 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
         border-bottom: 15px solid #ccc;
+    }
+
+    @media (max-width: 767px) {
+        position: static;
+        width: auto;
+        margin-top: 12px;
+
+        &::before{
+            left: 10px;
+            right: auto;
+        }
     }
 `
 
@@ -130,4 +137,15 @@ export const ItemTitle = styled.div`
 export const ItemValue = styled.div`
     min-width: 24px;
     font-size: 18px;
+`
+
+export const Warning = styled.p`
+    font-size: 18px;
+    color: #ff4d4f;
+    margin: 12px auto 0;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        margin: 12px auto ;
+    }
 `

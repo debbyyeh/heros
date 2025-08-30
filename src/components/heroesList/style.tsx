@@ -9,6 +9,11 @@ export const Note = styled.p`
     font-size: 20px;
     color: #fff;
     margin: 20px auto;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        margin: 10px auto;
+    }
 `
 
 export const HeroesListContainer = styled.div`

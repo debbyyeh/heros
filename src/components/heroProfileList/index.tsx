@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useHeroStore} from "../../domain/heroStore";
 import { editHeroProfile } from "../../util/apiUtil";
-import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn} from "./style"
-import { Note } from "../heroesList/style";
+import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn, Warning} from "./style"
 
 
 export const HeroProfileList = ({id}:{id:string})=>{
@@ -46,11 +45,17 @@ export const HeroProfileList = ({id}:{id:string})=>{
     },[id, profile, remainingPoints, setTempData]);
 
     const sendUpdatedProfile = async() =>{
+        
         validateRemainingPoints(remainingPoints!);
 
         if(Object.values(profile!).some(value => value <= 0)){
             setWarning('能力值不能小於0')
             return false;
+        }
+
+        if(!isEditing){
+            setWarning('英雄 still the same，都還是沒有變')
+            return;
         }
         setWarning('英雄變身中...')
         setSavingData(true);
@@ -99,7 +104,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
                     >儲存</SaveBtn>
                 </PointInfo>
             </ProfileContent>
-            <Note>{warning}</Note>
+            <Warning>{warning}</Warning>
             </>
         : null
         )
