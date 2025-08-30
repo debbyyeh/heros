@@ -8,6 +8,7 @@ interface ConfirmPopupProps {
   
 
 export default function Popup({ message, onConfirm, onCancel, isOpen }:ConfirmPopupProps){
+    
     return(
         isOpen ?
         <Overlay>
