@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useHeroStore} from "../../domain/heroStore";
 import { editHeroProfile } from "../../util/apiUtil";
-import { ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn, Warning} from "./style"
+import { AddButton, ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn, Warning} from "./style"
 
 
 export const HeroProfileList = ({id}:{id:string})=>{
@@ -19,30 +19,46 @@ export const HeroProfileList = ({id}:{id:string})=>{
         return isEditing ? tempData[id] : hero.profile;
     }, [isEditing, tempData, id, hero.profile]);
 
-
-    function calcRemainingPoints(current: number, delta: number) {
-        return current - delta;
-    }
-      
     function calcNewStatValue(current: number, delta: number) {
         return Math.max(0, current + delta);
     }
-    
-    const updateProfileValue = useCallback((key: string, delta: number)=>{
-        if (!profile) return;
-        
-        const newRemainingPoints = calcRemainingPoints(remainingPoints, delta); 
-        const newValue = calcNewStatValue(profile[key as keyof typeof profile], delta);
 
-        setRemainingPoints(newRemainingPoints);
-        
-        setTempData(id,{
+    const validateRemainingPoints = (remainingPoints: number) => {
+        if(remainingPoints !== 0){
+            setWarning('請將剩餘點數分配完畢')
+            return false;
+        }
+        setWarning('');
+        return true;
+    }
+
+    const updateProfileValue = useCallback(
+        (key: string, deltaOrValue: number | "", fromInput: boolean = false) => {
+          if (!profile) return;
+
+          let newValue: number | "" = deltaOrValue;
+      
+          const current: number = profile[key as keyof typeof profile];
+          
+      
+          if (!fromInput) {
+            newValue = calcNewStatValue(current, deltaOrValue as number);
+          } else {
+            newValue = deltaOrValue === "" ? "" : Math.max(0, deltaOrValue as number);
+          }
+          const delta = (newValue === "" ? 0 : newValue) - current;
+          const newRemainingPoints = remainingPoints - delta;
+          setRemainingPoints(newRemainingPoints);
+          validateRemainingPoints(newRemainingPoints);
+      
+          setTempData(id, {
             ...profile,
-            [key]: newValue
-        })
-
-        validateRemainingPoints(newRemainingPoints);
-    },[id, profile, remainingPoints, setTempData]);
+            [key]: newValue,
+          });
+        },
+        [profile, id, setTempData, remainingPoints]
+      );
+      
 
     const sendUpdatedProfile = async() =>{
         
@@ -72,15 +88,6 @@ export const HeroProfileList = ({id}:{id:string})=>{
           }
     }
 
-    const validateRemainingPoints = (remainingPoints: number) => {
-        if(remainingPoints !== 0){
-            setWarning('請將剩餘點數分配完畢')
-            return false;
-        }
-        setWarning('');
-        return true;
-    }
-
     return(
         profile ?
         <>
@@ -94,6 +101,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
                             value={profile ? profile[key as keyof typeof profile] : 0}
                             onIncrease={() => updateProfileValue(key, +1)}
                             onDecrease={() => updateProfileValue(key, -1)}
+                            onChange={(newValue) => updateProfileValue(key, newValue, true)}
                         />
                     )}
                 </ProfileInfo>
@@ -107,18 +115,29 @@ export const HeroProfileList = ({id}:{id:string})=>{
             <Warning>{warning}</Warning>
             </>
         : null
-        )
+    )
+}
+
+interface ProfileInfoStateProps {
+    label:string;
+    value:number;
+    onIncrease:()=>void;
+    onDecrease:()=>void;
+    onChange:(newValue: number | "", key: string) => void
 }
 
 
+export default function ProfileInfoState({label, value, onIncrease, onDecrease, onChange}:ProfileInfoStateProps){
 
-export default function ProfileInfoState({label, value, onIncrease, onDecrease}:{label?:string, value?:number, onIncrease?:()=>void, onDecrease?:()=>void}){
+
     return (
         <ProfileInfoItem>
             <ItemTitle>{label}</ItemTitle>
-            <button onClick={onIncrease}>+</button>
-            <ItemValue>{value}</ItemValue>
-            <button onClick={onDecrease} disabled={value! <= 0}>-</button>    
+            <AddButton size={28} onClick={onIncrease}>+</AddButton>
+            <ItemValue value={value} name="profileValue" type="text" 
+                onChange={(e) => onChange(Number(e.target.value) || "", label)}
+            />
+            <AddButton size={28} onClick={onDecrease} disabled={value! <= 0}>-</AddButton>    
         </ProfileInfoItem>
     )
 }

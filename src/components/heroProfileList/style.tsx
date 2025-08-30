@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button as BaseButton } from "../popup/style.tsx";
 
 interface ProfileContainerProps {
   $selected?: boolean;
@@ -99,20 +100,34 @@ export const ProfileInfoItem = styled.div`
   &:not(:last-child){
     margin-bottom: 12px;
   }
-  
-  >button{
-        padding: 8px 12px;
-        font-size: 20px;
-        min-width: 30px;
-    }
-
-    @media (max-width: 400px) {
-        justify-content: space-around;
-    }
 `
 
+interface AddButtonProps {
+    size: number; 
+  }
+  
+  export const AddButton = styled(BaseButton)<AddButtonProps>`
+    width: ${(props) => props.size}px;
+    height: ${(props) => props.size}px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color:rgba(142, 154, 172, 0.345);
+
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+
+    &:disabled{
+        opacity:0.2;
+    }
+  `;
+
 export const SaveBtn = styled.button<{$waiting:boolean}>`
-    background-color: ${({ $waiting }) => ($waiting ? "#ccc" : "#4caf50")};
+    background-color: ${({ $waiting }) => ($waiting ? "#ccc" : "#646cff")};
     cursor: ${({ $waiting }) => ($waiting ? "not-allowed" : "pointer")};
     color: white;
     border: none;
@@ -132,11 +147,30 @@ export const SaveBtn = styled.button<{$waiting:boolean}>`
 export const ItemTitle = styled.div`
     font-size: 20px;
     min-width: 40px;
+    flex: 1;
 `
 
-export const ItemValue = styled.div`
+export const ItemValue = styled.input`
     min-width: 24px;
     font-size: 18px;
+    height: auto;
+    font-size: 22px;
+    margin: 10px;
+    caret-color: #646cff;
+    outline: none;
+    border: none;
+    text-align: center;
+    background-color: #242424;
+    border-bottom: 1px solid #ccc;
+    flex:2;
+    appearance: textfield; /* Standard property for compatibility */
+    -moz-appearance: textfield; /* Firefox 移除箭頭 */
+  
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* Chrome, Safari, Edge 移除箭頭 */
+        margin: 0;
+    }
 `
 
 export const Warning = styled.p`
