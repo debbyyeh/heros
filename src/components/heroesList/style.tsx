@@ -17,6 +17,9 @@ export const Note = styled.p`
 `
 
 export const HeroesListContainer = styled.div`
+  background-color: #4a4646;
+  padding: 20px;
+
   display: grid;
   gap:16px;
   width: 100%;
@@ -25,8 +28,10 @@ export const HeroesListContainer = styled.div`
 
   
   @media (max-width: 767px) {
+    background-color: transparent;
+    padding: 0;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    max-width: calc(100vw - 40px);
+    /* max-width: calc(100vw - 40px); */
   }
 
   @media (min-width: 768px) and (max-width: 1199px) {
