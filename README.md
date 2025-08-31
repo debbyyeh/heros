@@ -10,7 +10,7 @@
 
 ```bash
 # Clone
-git clone <'https://github.com/debbyyeh/heros.git'>
+git clone <https://github.com/debbyyeh/heros.git>
 cd heroes
 
 # Install
