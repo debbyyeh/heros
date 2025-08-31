@@ -13,7 +13,6 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
     const [showConfirm, setShowConfirm] = useState(false);
     const [directToHeroId, setDirectToHeroId] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
-    const [selectedHeroId, setSelectedHeroId] = useState<string | null>(id || null);
     
 
     useEffect(() => {
@@ -58,10 +57,9 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
 
                     }}>
                         <HeroCard key={`hero_${hero.id}`} 
-                            onClick={() => {
+                            onClick={() => 
                                 handleLeaveHero(hero.id)
-                                setSelectedHeroId(hero.id)
-                            }}
+                            }
                             $showAll={id === undefined}
                             $selected={id === hero.id}
                         >
