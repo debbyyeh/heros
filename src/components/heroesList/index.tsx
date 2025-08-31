@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useHeroStore, type Hero } from "../../domain/heroStore";
+import { useHeroStore, type Hero,  } from "../../domain/heroStore";
 import { HeroCard, HeroesListContainer, HeroImageWrapper } from "./style";
 import { ProfileContainer } from "../heroProfileList/style";
 import { useState } from "react";
@@ -41,7 +41,6 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
 
 
     return (
-        <>
         <HeroesListContainer>
             {allHeroes.map((hero, index) => {
                 const isSelected = id === hero.id;
@@ -77,7 +76,5 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
             ): null}
             
         </HeroesListContainer>
-        
-        </>
     )
 }

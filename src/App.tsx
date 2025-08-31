@@ -1,5 +1,5 @@
-import './App.css'
 import Error from './pages/Error';
+import './styles/global.css'
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HeroesPage from './pages/HeroesPage';

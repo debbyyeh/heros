@@ -28,12 +28,3 @@ export const Buttons = styled.div`
   justify-content: flex-end;
   gap: 12px;
 `;
-
-export const Button = styled.button<{ $cancel?: boolean }>`
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background-color: ${({ $cancel }) => ($cancel ? "#ccc" : "#646cff")};
-  color: ${({ $cancel }) => ($cancel ? "#333" : "#fff")};
-`;

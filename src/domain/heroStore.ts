@@ -20,7 +20,7 @@ export interface Hero{
 
 export type HeroLists = Record<string, Hero>;
 
-export type HeroProfile = {
+export interface HeroProfile {
     str: number;
     int: number;
     agi: number;

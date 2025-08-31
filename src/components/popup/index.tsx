@@ -1,4 +1,5 @@
-import { Button, Buttons, Message, Overlay, PopupContainer } from "./style";
+import { Button } from "../common/Button";
+import { Buttons, Message, Overlay, PopupContainer } from "./style";
 interface ConfirmPopupProps {
     message: string;
     onConfirm: () => void;

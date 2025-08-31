@@ -1,7 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
 import { useHeroStore} from "../../domain/heroStore";
 import { editHeroProfile } from "../../util/apiUtil";
-import { AddButton, ItemTitle, ItemValue, PointInfo, ProfileContent, ProfileInfo, ProfileInfoItem, SaveBtn, Warning} from "./style"
+import { PointInfo, ProfileContent, ProfileInfo, Warning} from "./style"
+import ProfileInfoState from "../profileInfo";
+import { SaveBtn } from "../common/Button";
 
 
 export const HeroProfileList = ({id}:{id:string})=>{
@@ -14,7 +16,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
     const [remainingPoints, setRemainingPoints] = useState<number>(0);
     const [warning, setWarning] = useState<string>('');
 
-    //當tempData跟 hero.profile 值不一樣的時候，顯示tempData的值，代表正在被修改
+    //NOTE:當tempData跟 hero.profile 值不一樣的時候，顯示tempData的值，代表正在被修改
     const profile = useMemo(() => {
         return isEditing ? tempData[id] : hero.profile;
     }, [isEditing, tempData, id, hero.profile]);
@@ -82,7 +84,6 @@ export const HeroProfileList = ({id}:{id:string})=>{
             updateHeroProfile(id, profile!, true);
             setWarning("英雄變身成功！");
           } catch (err) {
-            console.log('errrrrrrrrrrrr')
             setSavingData(false);
             updateHeroProfile(id, profile!, false);
             setWarning("儲存失敗，請重試");
@@ -116,29 +117,5 @@ export const HeroProfileList = ({id}:{id:string})=>{
             <Warning>{warning}</Warning>
             </>
         : null
-    )
-}
-
-interface ProfileInfoStateProps {
-    label:string;
-    value:number;
-    onIncrease:()=>void;
-    onDecrease:()=>void;
-    onChange:(newValue: number | "", key: string) => void
-}
-
-
-export default function ProfileInfoState({label, value, onIncrease, onDecrease, onChange}:ProfileInfoStateProps){
-
-
-    return (
-        <ProfileInfoItem>
-            <ItemTitle>{label}</ItemTitle>
-            <AddButton size={28} onClick={onIncrease}>+</AddButton>
-            <ItemValue value={value} name="profileValue" type="text" 
-                onChange={(e) => onChange(Number(e.target.value) || "", label)}
-            />
-            <AddButton size={28} onClick={onDecrease} disabled={value! <= 0}>-</AddButton>    
-        </ProfileInfoItem>
     )
 }
