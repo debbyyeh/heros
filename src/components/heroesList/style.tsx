@@ -22,16 +22,13 @@ export const HeroesListContainer = styled.div`
 
   display: grid;
   gap:16px;
-  width: 100%;
   margin: 0 auto;
-  position:relative;
 
   
   @media (max-width: 767px) {
     background-color: transparent;
     padding: 0;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* max-width: calc(100vw - 40px); */
   }
 
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -70,7 +67,7 @@ export const HeroCard = styled.div<HeroCardProps>`
   }
 
   /* 手機版上讓圖片縮小，這樣就不用另外將畫面往下滑就可以調整數據 */
-  @media (max-width: 440px) {
+  @media (max-width: 767px) {
     width: ${({ $selected }) => ($selected ? "80px" : "")};
     height: ${({ $selected }) => ($selected ? "80px" : "auto")};
     border-radius: ${({ $selected }) => ($selected ? "50%" : "")};
@@ -94,7 +91,7 @@ export const HeroImageWrapper = styled.div<HeroCardProps>`
     border-radius: 8px;
   }
 
-  @media (max-width: 440px) {
+  @media (max-width: 767px) {
     img{
       border-radius: ${({ $selected }) => ($selected ? "50%" : "")};
     }

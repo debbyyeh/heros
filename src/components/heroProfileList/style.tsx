@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 interface ProfileContainerProps {
   $selected?: boolean;
-  $extendToRight?: boolean;
 }
 
 export const ProfileContainer = styled.div<ProfileContainerProps>`
@@ -14,29 +13,14 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
     transform: ${({ $selected }) => ($selected ? "scaleY(1)" : "scaleY(0)")};    
     transition: transform 0.3s ease;
     max-height: ${({ $selected }) => ($selected ? "400px" : "0")};
-    position: absolute;
-    right: 0;
-    ${({ $extendToRight }) =>
-        $extendToRight &&
-        `
-            left: 0;
-            right: auto;
-        `}
 
-    
+
 
     &::before {
         content:'';
         position: absolute;
         top:-15px;
-        right:10px;
-        ${({ $extendToRight }) =>
-            $extendToRight
-                ? `
-                    right: auto;
-                    left: 10px;
-                `
-                : ''}
+        left:0px;
         width: 0;
         height: 0;
         border-left: 15px solid transparent;
@@ -45,8 +29,6 @@ export const ProfileContainer = styled.div<ProfileContainerProps>`
     }
 
     @media (max-width: 767px) {
-        position: static;
-        width: auto;
         margin-top: 12px;
         max-height: ${({ $selected }) => ($selected ? "450px" : "0")};
 

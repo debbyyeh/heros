@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useHeroStore, type Hero,  } from "../../domain/heroStore";
 import { HeroCard, HeroesListContainer, HeroImageWrapper } from "./style";
-import { ProfileContainer } from "../heroProfileList/style";
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 import Popup from "../popup";
 
 export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[], id:string, children: React.ReactNode}) {
@@ -13,6 +12,16 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
     const heroesList = useHeroStore(state => state.heroesList);
     const [showConfirm, setShowConfirm] = useState(false);
     const [directToHeroId, setDirectToHeroId] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+    const [selectedHeroId, setSelectedHeroId] = useState<string | null>(id || null);
+    
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 767);
+            window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
 
     const handleConfirm = (linkHeroId: string) => {
         if (id && heroesList[id]?.profile){
@@ -41,15 +50,18 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
 
 
     return (
+        <>
         <HeroesListContainer>
-            {allHeroes.map((hero, index) => {
-                const isSelected = id === hero.id;
+            {allHeroes.map((hero) => {
                 return(
                     <div key={`card_${hero.id}`} style={{position:'relative'
 
                     }}>
                         <HeroCard key={`hero_${hero.id}`} 
-                            onClick={() => {handleLeaveHero(hero.id)}}
+                            onClick={() => {
+                                handleLeaveHero(hero.id)
+                                setSelectedHeroId(hero.id)
+                            }}
                             $showAll={id === undefined}
                             $selected={id === hero.id}
                         >
@@ -57,15 +69,14 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
                                 <img src={hero.image} alt={hero.name} />
                             </HeroImageWrapper>
                             <h2>{hero.name}</h2>
+                            
                         </HeroCard>
-                        {/* extendToRight profile 方框延伸的方向 */}
-                        <ProfileContainer $selected={id === hero.id} $extendToRight={index === 0 || index === 1}>
-                          { isSelected && children}
-                        </ProfileContainer>
-                        
+                        {(id === hero.id && isMobile) ? children : null}
                     </div>
                 )
             })}
+            </HeroesListContainer>
+            {!isMobile && children}
             {showConfirm ? (
                 <Popup
                     isOpen={showConfirm}
@@ -74,7 +85,6 @@ export default function HeroesList({allHeroes, id, children}: {allHeroes:Hero[],
                     onCancel={handleCancel}
                 />
             ): null}
-            
-        </HeroesListContainer>
+        </>
     )
 }

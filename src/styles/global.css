@@ -12,7 +12,12 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
     margin: 0;
@@ -20,7 +25,6 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
-    padding: 0 20px;
 }
 
 #root {
@@ -28,6 +32,7 @@ body {
     min-height: 100vh;
     margin: 0 auto;
     text-align: center;
+    padding: 20px;
   }
   
 

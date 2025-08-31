@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useHeroStore} from "../../domain/heroStore";
 import { editHeroProfile } from "../../util/apiUtil";
-import { PointInfo, ProfileContent, ProfileInfo, Warning} from "./style"
+import { PointInfo, ProfileContainer, ProfileContent, ProfileInfo, Warning} from "./style"
 import ProfileInfoState from "../profileInfo";
 import { SaveBtn } from "../common/Button";
 
@@ -10,7 +10,6 @@ export const HeroProfileList = ({id}:{id:string})=>{
     const { heroesList, updateHeroProfile, tempData, setTempData } = useHeroStore();
     const isEditing = useHeroStore(state => state.isEditingData(state, id));
     const [savingData, setSavingData] = useState<boolean>(false);
-
     const hero = heroesList[id!];
 
     const [remainingPoints, setRemainingPoints] = useState<number>(0);
@@ -59,7 +58,7 @@ export const HeroProfileList = ({id}:{id:string})=>{
           });
         },
         [profile, id, setTempData, remainingPoints]
-      );
+    );
       
 
     const sendUpdatedProfile = async() =>{
@@ -91,11 +90,9 @@ export const HeroProfileList = ({id}:{id:string})=>{
     }
 
     return(
-        profile ?
-        <>
-            <ProfileContent
-            >
-                 <ProfileInfo>
+        <ProfileContainer $selected={id === heroesList[id!].id} >
+            <ProfileContent>
+                <ProfileInfo>
                     {Object.keys(profile!).map((key)=>
                         <ProfileInfoState
                             key={key}
@@ -113,9 +110,9 @@ export const HeroProfileList = ({id}:{id:string})=>{
                     <SaveBtn onClick={sendUpdatedProfile} disabled={savingData || remainingPoints !== 0} $waiting={savingData!}
                     >儲存</SaveBtn>
                 </PointInfo>
+                
             </ProfileContent>
             <Warning>{warning}</Warning>
-            </>
-        : null
+        </ProfileContainer>
     )
 }
