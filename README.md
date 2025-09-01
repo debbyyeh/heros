@@ -68,11 +68,17 @@ heroes/
 │ │ │ ├── index.tsx
 │ │ │ └── style.tsx
 │ │ ├── heroProfileList/ # 英雄詳細資訊
+│ │ ├── index.tsx
+│ │ │ └── style.tsx
 │ │ ├── popup/ # 彈出視窗
+│ │ ├── index.tsx
+│ │ │ └── style.tsx
 │ │ └── profileInfo/ # 個別 profile 顯示
+│ │ ├── index.tsx
+│ │ │ └── style.tsx
 │ ├── domain/
 │ │ └── heroStore.ts # Zustand 狀態管理
-│ ├── pages/ # 頁面 (HeroesPage, HeroProfilePage)
+│ ├── pages/ # 頁面 (HeroesPage, HeroProfilePage, Error)
 │ ├── styles/
 │ │└── global.css #全域樣式
 │ ├── util/
@@ -136,14 +142,12 @@ heroes/
 1. **無設計稿，排版與間距難掌握**
    - 解法：先以 UX 優先，訂出 spacing scale（例如 8px 基底），並把重點元件（按鈕、卡片）定義成 component，統一管理。
 
-2. **路由分開導致重複 fetch**
-   - 解法：把 `/heroes` 與 `/:id` 視為同一資料來源，使用 store 共用資料，路由改為 `heroes` 下的 nested route 或把 profile 當 overlay，但保持 URL 可分享。
+2. **畫面呈現要用的資料來源（暫存資料）跟原始資料的存放**
+   - 剩餘能力這邊在還沒按下儲存按鈕前代表資料不一定會被修改（或者是途中切換頁面），假設修改原本資料就會導致資料混亂的問題。
+   - 為了統一資料，於是在 HeroStore 增設一個 tempData跟原始資料去做資料比對，然後再做相關的處理。
 
-3. **API 回傳 200 但 response body 不是 JSON（例如瀏覽器回傳 "OK"）導致 parse error**
-   - 解法：在 `utils/api.ts` 做 defensive parsing：先檢查 `res.headers.get('content-type')`，再決定要不要調 `res.json()`，遇到非 JSON 秀友善錯誤訊息。
-
-4. **使用 React 19 的新 Hook（如 use()）時不確定寫法會不會出錯**
-   - 解法：查官方文件與社群實作後，若不確定就先採漸進式使用，並在 code review 加上註解請同事確認；或暫時回退到穩定寫法以保證 deliverable。
+4. **可以更盡完美的地方**
+   - 如果有時間的話會覺得需要加上剩餘能力測試這一塊。
 
 ---
 
@@ -153,5 +157,6 @@ heroes/
 - 編輯時若點選其他卡片或離開頁面會跳出提示，避免未儲存資料遺失。
 - 顯示明確的操作提示（錯誤、成功、儲存中），並在儲存 API 呼叫期間禁用重複點擊。
 - 驗證：剩餘點數（remainingPoints）必須為 0 才能儲存，否則顯示警告。
+- 若無修改資料按儲存也會顯示相對應訊息提示。
 
 ---
